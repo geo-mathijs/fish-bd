@@ -82,6 +82,16 @@ function bd
         return 0
     end
 
+    if string match -qr '^[0-9]+$' $args[$i]
+        set newpwd "./"
+        for n in (seq 1 $args[$i])
+            set newpwd "$newpwd""../"
+        end
+        cd "$newpwd"
+        pwd
+        return 0
+    end
+
     switch "$opts"
     case "sensitive"
         set newpwd (echo $oldpwd | sed 's|\(.*/'$args[$i]'[^/]*/\).*|\1|')
